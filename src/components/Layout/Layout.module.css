@@ -1,0 +1,10 @@
+.Content {
+  width: 100vw;
+  height: 80vh;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: top;
+  align-items: center;
+}
