@@ -1,6 +1,6 @@
 .Content {
   width: 100vw;
-  height: 80vh;
+  height: auto;
   margin-top: 50px;
   display: flex;
   flex-direction: column;

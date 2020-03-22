@@ -1,8 +1,0 @@
-.Content {
-  width: 400px;
-  height: 50%;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
