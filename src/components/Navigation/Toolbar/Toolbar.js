@@ -1,0 +1,12 @@
+import React from "react";
+import classes from "./Toolbar.module.css";
+
+const toobar = props => (
+  <header className={classes.Toolbar}>
+    <div>Menu</div>
+    <div>LOGO</div>
+    <nav>...</nav>
+  </header>
+);
+
+export default toobar;

@@ -68,6 +68,7 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseContinueHandler = () => {
+    this.setState({ purchasing: false });
     alert("continue");
   };
 
