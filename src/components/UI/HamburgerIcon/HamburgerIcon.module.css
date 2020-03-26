@@ -1,0 +1,40 @@
+.HamburgerIcon {
+  height: 100%;
+}
+
+path {
+  stroke: white;
+  stroke-linecap: round;
+  stroke-width: 2;
+  transition: all 0.2s ease-out;
+}
+
+.HamburgerIcon:hover {
+  cursor: pointer;
+}
+
+.HamburgerIcon:hover .Top {
+  d: path("M4 4 L28 4");
+}
+
+.HamburgerIcon:hover .Bottom {
+  d: path("M4 28 L28 28");
+}
+
+.Filler1 {
+  stroke-width: 0;
+}
+
+.HamburgerIcon:hover .Filler1 {
+  d: path("M6 10 L26 10");
+  stroke-width: 2;
+}
+
+.Filler2 {
+  stroke-width: 0;
+}
+
+.HamburgerIcon:hover .Filler2 {
+  d: path("M6 22 L26 22");
+  stroke-width: 2;
+}

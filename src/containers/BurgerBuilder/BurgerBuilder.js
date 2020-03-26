@@ -81,7 +81,7 @@ class BurgerBuilder extends React.Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <Modal
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
@@ -102,7 +102,7 @@ class BurgerBuilder extends React.Component {
           purchaseable={this.state.purchaseable}
           ordered={this.purchaseHandler}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
