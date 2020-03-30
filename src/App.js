@@ -11,7 +11,6 @@ class App extends React.Component {
       <div>
         <Layout>
           <Switch>
-            <Route path="/checkout/contact-data" component={ContactData} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/" component={BurgerBuilder} />
           </Switch>
