@@ -2,14 +2,6 @@ import React from "react";
 import classes from "./Order.module.css";
 
 const order = props => {
-  //   const ingredientList = Object.keys(props.ingredients).map(ig => {
-  //     return (
-  //       <li key={ig}>
-  //         {ig}: {props.ingredients[ig]}
-  //       </li>
-  //     );
-  //   });
-
   const ingredientList = [];
   for (let ig in props.ingredients) {
     if (props.ingredients[ig] >= 1) {

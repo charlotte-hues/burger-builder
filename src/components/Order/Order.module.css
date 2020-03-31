@@ -8,13 +8,13 @@
   text-align: left;
 }
 
-ul {
+.Order ul {
   display: flex;
   list-style: none;
   padding-left: 0;
 }
 
-li {
+.Order li {
   padding: 4px 6px;
   margin-left: 10px;
   border: 1px solid #cccccc;
