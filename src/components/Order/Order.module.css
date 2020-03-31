@@ -1,0 +1,22 @@
+.Order {
+  width: 80%;
+  border: 1px solid #cccccc;
+  box-shadow: #eee;
+  padding: 10px;
+  margin: 10px auto;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  padding: 4px 6px;
+  margin-left: 10px;
+  border: 1px solid #cccccc;
+  align-items: center;
+}
