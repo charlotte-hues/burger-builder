@@ -25,3 +25,11 @@
   outline: none;
   background-color: #ccc;
 }
+
+.Valid {
+  border-color: lightgreen;
+}
+
+.Invalid {
+  border-color: lightcoral;
+}
