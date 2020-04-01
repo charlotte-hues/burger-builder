@@ -3,14 +3,80 @@ import Button from "../../../components/UI/Button/Button";
 import classes from "./ContactData.module.css";
 import axios from "../../../axios-order";
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import Input from "../../../components/UI/Input/Input";
 
 class ContactData extends React.Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      postalCode: ""
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "your name"
+        },
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false
+      },
+      street: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "street name"
+        },
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false
+      },
+      postCode: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "postcode"
+        },
+        value: "",
+        validation: {
+          required: true
+        }
+      },
+      country: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Country"
+        },
+        value: "Uk",
+        validation: {
+          required: true
+        },
+        valid: false
+      },
+      email: {
+        elementType: "input",
+        elementConfig: {
+          type: "email",
+          placeholder: "your email address"
+        },
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false
+      },
+      deliveryMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "fastest", displayValue: "fastest" },
+            { value: "cheapest", displayValue: "cheapest" }
+          ]
+        },
+        value: "fastest"
+      }
     },
     purchasing: false,
     loading: false
@@ -19,20 +85,15 @@ class ContactData extends React.Component {
   orderHandler = e => {
     e.preventDefault();
     this.setState({ loading: true });
+    const formData = {};
+    for (let formEl in this.state.orderForm) {
+      formData[formEl] = this.state.orderForm[formEl].value;
+    }
 
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: "Charlotte Hughes",
-        address: {
-          street: "test street 1",
-          postCode: "ab12cd",
-          country: "England"
-        },
-        email: "test@test.com"
-      },
-      deliveryMethod: "fastsest"
+      customer: formData
     };
     axios
       .post("/orders.json", order)
@@ -43,18 +104,55 @@ class ContactData extends React.Component {
       .catch(error => this.setState({ loading: false }));
   };
 
+  checkValidity(value, rules) {
+    let isValid = false;
+
+    if (rules.required) {
+      isValid = value.trim() !== "";
+    }
+    return isValid;
+  }
+
+  inputChangedHandler = (e, input) => {
+    const updatedForm = { ...this.state.orderForm };
+    const updatedElement = { ...updatedForm[input] };
+    updatedElement.value = e.target.value;
+    updatedElement.valid = this.checkValidity(
+      updatedElement.value,
+      updatedElement.validation
+    );
+    console.log(updatedElement.valid);
+    updatedForm[input] = updatedElement;
+    this.setState({
+      orderForm: updatedForm
+    });
+  };
+
   render() {
+    let formElementsArray = [];
+    for (let input in this.state.orderForm) {
+      formElementsArray.push({
+        id: input,
+        config: this.state.orderForm[input]
+      });
+    }
+
     let contactForm = (
       <React.Fragment>
         <h4>Enter your Contact Details</h4>
-        <form>
-          <input type="text" name="name" placeholder="your name" />
-          <input type="email" name="email" placeholder="your email" />
-          <input type="text" name="street" placeholder="Street" />
-          <input type="text" name="postal" placeholder="Post Code" />
-          <Button btnType="Success" clicked={this.orderHandler}>
-            Order
-          </Button>
+        <form onSubmit={this.orderHandler}>
+          {formElementsArray.map(input => {
+            return (
+              <Input
+                key={input.id}
+                elementConfig={input.config.elementConfig}
+                elementType={input.config.elementType}
+                value={input.config.value}
+                changed={e => this.inputChangedHandler(e, input.id)}
+              />
+            );
+          })}
+          <Button btnType="Success">Order</Button>
         </form>
       </React.Fragment>
     );

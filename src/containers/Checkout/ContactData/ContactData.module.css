@@ -13,10 +13,6 @@ form {
   flex-direction: column;
 }
 
-form > * {
-  margin: 10px;
-}
-
 @media (min-width: 600px) {
   .ContactData {
     width: 500px;
