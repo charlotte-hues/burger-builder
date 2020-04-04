@@ -18,6 +18,7 @@ class BurgerBuilder extends React.Component {
   state = {
     ingredients: null,
     totalPrice: 1.6,
+
     purchaseable: false,
     purchasing: false,
     loading: false,
