@@ -15,7 +15,6 @@ const buildControls = props => (
       Current Price: <strong>£{props.price.toFixed(2)}</strong>
     </p>
     {controls.map(control => {
-      console.log(control.type);
       return (
         <BuildControl
           key={control.label}

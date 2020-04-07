@@ -1,14 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
+import { updateExpression } from "@babel/types";
 
 const initialState = {
-  ingredients: {
-    bacon: 0,
-    cheese: 0,
-    salad: 0,
-    meat: 1
-  },
-  totalPrice: 3
+  ingredients: null,
+  totalPrice: 3,
+  error: false
 };
 
 const INGREDIENT_PRICES = {
@@ -36,6 +33,20 @@ const reducer = (state = initialState, action) => {
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+      });
+    case actionTypes.SET_INGREDIENTS:
+      return updateObject(state, {
+        ingredients: {
+          salad: action.ingredients.salad,
+          bacon: action.ingredients.bacon,
+          cheese: action.ingredients.cheese,
+          meat: action.ingredients.meat
+        },
+        error: false
+      });
+    case actionTypes.FETCH_INGREDIENTS_FAILED:
+      return updateObject(state, {
+        error: true
       });
 
     default:
