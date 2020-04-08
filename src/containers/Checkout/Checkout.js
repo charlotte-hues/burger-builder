@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
 
 class Checkout extends React.Component {
@@ -14,7 +14,9 @@ class Checkout extends React.Component {
   };
 
   render() {
-    return (
+    const summary = !this.props.ings ? (
+      <Redirect to="/" />
+    ) : (
       <React.Fragment>
         <CheckoutSummary
           ingredients={this.props.ings}
@@ -27,13 +29,14 @@ class Checkout extends React.Component {
         />
       </React.Fragment>
     );
+    return summary;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice
   };
 };
 
