@@ -27,8 +27,4 @@ const burger = props => {
   );
 };
 
-burger.propTypes = {
-  type: PropTypes.string.isRequired
-};
-
 export default burger;

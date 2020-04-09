@@ -16,7 +16,6 @@ export const removeIngredient = ingredient => {
 };
 
 const setIngredients = ingredients => {
-  console.log(ingredients);
   return {
     type: actionTypes.SET_INGREDIENTS,
     ingredients: ingredients
