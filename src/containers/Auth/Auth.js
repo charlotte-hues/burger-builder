@@ -149,7 +149,7 @@ class Auth extends React.Component {
     }
 
     if (this.props.isAuth && this.props.isBuilding) {
-      loginArea = <Redirect to={this.authRedirectPath} />;
+      loginArea = <Redirect to={this.props.authRedirectPath} />;
     }
 
     const errorMessage = this.props.error ? (
