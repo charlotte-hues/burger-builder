@@ -31,6 +31,7 @@ const checkAuthTimeout = expirationTime => {
 };
 
 export const logout = () => {
+  console.log("LOGOUT");
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -56,5 +57,12 @@ export const auth = (email, password, isSignUp) => {
       .catch(error => {
         dispatch(authFail(error.response.data.error));
       });
+  };
+};
+
+export const setAuthRedirect = path => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
   };
 };

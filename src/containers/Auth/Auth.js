@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import classes from "./Auth.module.css";
@@ -139,12 +140,16 @@ class Auth extends React.Component {
       loginArea = <Spinner />;
     }
 
-    if (this.props.success) {
+    if (this.props.isAuth && !this.props.isBuilding) {
       if (this.state.isSignUp) {
         loginArea = <h1>Welcome!</h1>;
       } else {
         loginArea = <h1>Welcome Back!</h1>;
       }
+    }
+
+    if (this.props.isAuth && this.props.isBuilding) {
+      loginArea = <Redirect to="/checkout" />;
     }
 
     const errorMessage = this.props.error ? (
@@ -163,8 +168,9 @@ class Auth extends React.Component {
 const mapStateToProps = state => {
   return {
     isLoading: state.auth.loading,
-    success: state.auth.authenticated,
-    error: state.auth.error
+    isAuth: state.auth.token !== null,
+    error: state.auth.error,
+    isBuilding: state.burgerBuilder.building
   };
 };
 

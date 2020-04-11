@@ -110,7 +110,8 @@ class ContactData extends React.Component {
     this.props.onOrderBurger(order, this.props.authToken);
   };
 
-  checkValidity(value, rules) {
+  checkValidity(value, rules, valid) {
+    if (valid) return valid;
     if (!rules) return;
     let isValid = false;
 
@@ -126,7 +127,8 @@ class ContactData extends React.Component {
     updatedElement.value = e.target.value;
     updatedElement.valid = this.checkValidity(
       updatedElement.value,
-      updatedElement.validation
+      updatedElement.validation,
+      updatedElement.valid
     );
     updatedElement.changed = true;
     updatedForm[input] = updatedElement;
@@ -169,7 +171,11 @@ class ContactData extends React.Component {
               />
             );
           })}
-          <Button disabled={!this.state.formIsValid} btnType="Success">
+          <Button
+            submit={true}
+            disabled={!this.state.formIsValid}
+            btnType="Success"
+          >
             Order
           </Button>
         </form>
@@ -200,7 +206,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onOrderBurger: orderData => dispatch(actions.purchaseBurger(orderData))
+    onOrderBurger: (orderData, token) =>
+      dispatch(actions.purchaseBurger(orderData, token))
   };
 };
 

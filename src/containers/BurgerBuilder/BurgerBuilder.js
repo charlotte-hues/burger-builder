@@ -17,7 +17,11 @@ class BurgerBuilder extends React.Component {
   };
 
   componentDidMount() {
-    this.props.onInitIngredients();
+    if (this.props.isBuilding && !this.props.purchased) {
+      return;
+    } else {
+      this.props.onInitIngredients();
+    }
   }
 
   updatePurchaseable(ingredients) {
@@ -32,7 +36,11 @@ class BurgerBuilder extends React.Component {
   }
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (this.props.isAuth) {
+      this.setState({ purchasing: true });
+    } else {
+      this.props.history.push("/login");
+    }
   };
 
   purchaseCancelHandler = () => {
@@ -70,6 +78,7 @@ class BurgerBuilder extends React.Component {
             price={this.props.price}
             purchaseable={this.updatePurchaseable(this.props.ings)}
             ordered={this.purchaseHandler}
+            isAuth={this.props.isAuth}
           />
         </React.Fragment>
       );
@@ -106,6 +115,9 @@ const mapStateToProps = state => {
     error: state.burgerBuilder.error,
     price: state.burgerBuilder.totalPrice,
     ings: state.burgerBuilder.ingredients,
+    purchased: state.order.purchased,
+    isAuth: state.auth.token !== null,
+    isBuilding: state.burgerBuilder.building,
     purchased: state.order.purchased
   };
 };
