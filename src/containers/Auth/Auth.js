@@ -149,7 +149,7 @@ class Auth extends React.Component {
     }
 
     if (this.props.isAuth && this.props.isBuilding) {
-      loginArea = <Redirect to="/checkout" />;
+      loginArea = <Redirect to={this.authRedirectPath} />;
     }
 
     const errorMessage = this.props.error ? (
@@ -170,7 +170,8 @@ const mapStateToProps = state => {
     isLoading: state.auth.loading,
     isAuth: state.auth.token !== null,
     error: state.auth.error,
-    isBuilding: state.burgerBuilder.building
+    isBuilding: state.burgerBuilder.building,
+    authRedirectPath: state.auth.authRedirectPath
   };
 };
 
@@ -178,6 +179,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actions.auth(email, password, isSignUp))
+    // onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
   };
 };
 
