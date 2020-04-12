@@ -7,6 +7,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
+import { updateObject, checkValidity } from "../../../shared/utility";
 
 class ContactData extends React.Component {
   state = {
@@ -111,34 +112,23 @@ class ContactData extends React.Component {
     this.props.onOrderBurger(order, this.props.authToken);
   };
 
-  checkValidity(value, rules, valid) {
-    if (valid) return valid;
-    if (!rules) return;
-    let isValid = false;
-
-    if (rules.required) {
-      isValid = value.trim() !== "";
-    }
-    return isValid;
-  }
-
   inputChangedHandler = (e, input) => {
-    const updatedForm = { ...this.state.orderForm };
-    const updatedElement = { ...updatedForm[input] };
-    updatedElement.value = e.target.value;
-    updatedElement.valid = this.checkValidity(
-      updatedElement.value,
-      updatedElement.validation,
-      updatedElement.valid
-    );
-    updatedElement.changed = true;
-    updatedForm[input] = updatedElement;
-
+    const updatedElement = updateObject(this.state.orderForm[input], {
+      value: e.target.value,
+      valid: checkValidity(
+        e.target.value,
+        this.state.orderForm[input].validation,
+        this.state.orderForm[input].valid
+      ),
+      changed: true
+    });
+    const updatedForm = updateObject(this.state.orderForm, {
+      [input]: updatedElement
+    });
     let formIsValid = true;
     for (let key in updatedForm) {
       formIsValid = updatedForm[key].valid && formIsValid;
     }
-
     this.setState({
       orderForm: updatedForm,
       formIsValid: formIsValid

@@ -29,6 +29,7 @@ class App extends React.Component {
           <Route path="/logout" component={Logout} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/my-orders" component={Orders} />
+          <Route path="/login" component={Auth} />
           <Route path="/" component={BurgerBuilder} />
           <Redirect to="/" />
         </Switch>

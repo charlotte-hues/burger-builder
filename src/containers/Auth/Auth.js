@@ -6,6 +6,7 @@ import Input from "../../components/UI/Input/Input";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import { updateObject, checkValidity } from "../../shared/utility";
 
 class Auth extends React.Component {
   componentWillUnmount() {
@@ -51,33 +52,17 @@ class Auth extends React.Component {
     );
   };
 
-  checkValidity(value, rules) {
-    if (!rules) return;
-    let isValid = false;
-
-    if (rules.required) {
-      isValid = value.trim() !== "";
-    }
-
-    if (rules.minLength) {
-      isValid = value.length > rules.minLength;
-    }
-    return isValid;
-  }
-
   inputChangedHandler = (e, input) => {
-    const updatedControls = {
-      ...this.state.controls,
-      [input]: {
-        ...this.state.controls[input],
+    const updatedControls = updateObject(this.state.controls, {
+      [input]: updateObject(this.state.controls[input], {
         value: e.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           e.target.value,
           this.state.controls[input].validation
         ),
         changed: true
-      }
-    };
+      })
+    });
 
     let formIsValid = true;
     for (let key in updatedControls) {
