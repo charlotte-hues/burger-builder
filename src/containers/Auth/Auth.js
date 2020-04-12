@@ -8,6 +8,10 @@ import * as actions from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Auth extends React.Component {
+  componentWillUnmount() {
+    this.props.onSetRedirectPath("/");
+  }
+
   state = {
     controls: {
       email: {
@@ -178,8 +182,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
-      dispatch(actions.auth(email, password, isSignUp))
-    // onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
+      dispatch(actions.auth(email, password, isSignUp)),
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
   };
 };
 

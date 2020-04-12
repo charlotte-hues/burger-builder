@@ -16,7 +16,7 @@ const order = props => {
 
   const contact = [];
   for (let key in props.contactDetails) {
-    if (key == "name") {
+    if (key === "name") {
       contact.push(<p key={key}>{props.contactDetails[key]}</p>);
     }
   }

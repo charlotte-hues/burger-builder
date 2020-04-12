@@ -118,8 +118,7 @@ const mapStateToProps = state => {
     ings: state.burgerBuilder.ingredients,
     purchased: state.order.purchased,
     isAuth: state.auth.token !== null,
-    isBuilding: state.burgerBuilder.building,
-    purchased: state.order.purchased
+    isBuilding: state.burgerBuilder.building
   };
 };
 
