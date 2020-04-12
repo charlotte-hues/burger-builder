@@ -7,7 +7,7 @@ import * as actions from "../../store/actions/index";
 
 class Orders extends React.Component {
   componentDidMount() {
-    this.props.onFetchOrders(this.props.authToken);
+    this.props.onFetchOrders(this.props.authToken, this.props.uid);
   }
 
   render() {
@@ -37,12 +37,13 @@ const mapStateToProps = state => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
-    authToken: state.auth.token
+    authToken: state.auth.token,
+    uid: state.auth.userId
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: token => dispatch(actions.fetchOrders(token))
+    onFetchOrders: (token, uid) => dispatch(actions.fetchOrders(token, uid))
   };
 };
 
