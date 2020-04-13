@@ -9,7 +9,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import axios from "../../axios-order";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
-class BurgerBuilder extends React.Component {
+export class BurgerBuilder extends React.Component {
   state = {
     purchasing: false,
     loading: false,
