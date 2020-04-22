@@ -1,47 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import classes from "./Layout.module.css";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
-class Layout extends React.Component {
-  state = {
-    showSideDrawer: false
-  };
-  sideDrawerClosedHandler = () => {
-    this.setState({ showSideDrawer: false });
+const Layout = props => {
+  const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+
+  const sideDrawerClosedHandler = () => {
+    setSideDrawerIsVisible(false);
   };
 
-  sideDrawerOpenedHandler = () => {
-    this.setState({ showSideDrawer: true });
+  const sideDrawerOpenedHandler = () => {
+    setSideDrawerIsVisible(true);
   };
 
-  drawerToggleHandler = () => {
-    this.setState(prevState => {
-      return { showSideDrawer: !prevState.showSideDrawer };
-    });
+  const drawerToggleHandler = () => {
+    setSideDrawerIsVisible(prevState => !prevState);
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        <Toolbar
-          openSideDrawer={this.sideDrawerOpenedHandler}
-          drawerToggleClicked={this.drawerToggleHandler}
-          isAuth={this.props.isAuthenticated}
-        />
-        <SideDrawer
-          close={this.sideDrawerClosedHandler}
-          open={this.sideDrawerOpenedHandler}
-          show={this.state.showSideDrawer}
-          isAuth={this.props.isAuthenticated}
-        />
-        <main className={classes.Content}>{this.props.children}</main>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Toolbar
+        openSideDrawerIsVisible={sideDrawerOpenedHandler}
+        drawerToggleClicked={drawerToggleHandler}
+        isAuth={props.isAuthenticated}
+      />
+      <SideDrawer
+        close={sideDrawerClosedHandler}
+        open={sideDrawerOpenedHandler}
+        show={sideDrawerIsVisible}
+        isAuth={props.isAuthenticated}
+      />
+      <main className={classes.Content}>{props.children}</main>
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = state => {
   return {
