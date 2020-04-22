@@ -10,9 +10,10 @@ import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import * as actions from "./store/actions/index";
 
 const App = props => {
+  const { onTryAutoSignup } = props;
   useEffect(() => {
-    props.onTryAutoSignup();
-  }, []);
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
   let routes = (
     <Switch>
